@@ -1,0 +1,1 @@
+Con la cartella Barosello è sufficiente eseguire il file index.html sul proprio browser

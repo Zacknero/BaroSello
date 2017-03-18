@@ -1,0 +1,200 @@
+<!-- Created by Davide Zamballetti on 19/03/2017 -->
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Barosello Page</title>
+    <link rel="stylesheet" href="lib/bootstrap.css">
+    <link rel="stylesheet" href="lib/style.css">
+</head>
+<body ng-controller="baroSelloController" >
+
+<h1 class="col-lg-offset-4">Barosello Exercises</h1>
+
+<form name="ownerForm" class="form-horizontal col-lg-12">
+
+    <div class="row">
+
+        <div class="panel-default col-lg-12">
+
+            <div class="panel-heading">
+                <h3 class="panel-title basic">Scegli tipo input Automatico o Manuale</h3>
+            </div>
+
+            <div class="panel-body">
+
+                <div class="col-lg-6">
+                    <label class="col-lg-5">Manuale - Inserisci un numero:</label>
+
+                    <div class="col-lg-3" ng-show="showManualInput">
+                        <input type="number" class="form-control" ng-model="barosello.numberInput"
+                               placeholder="es. 1 2 3" min="0" max="100" ng-change="typeInput('M')">
+                    </div>
+                </div>
+
+
+                <div class="col-lg-6">
+                    <label class="col-lg-5">Automatico (for da 0 a 100)</label>
+
+                    <div class="col-lg-4">
+                        <button ng-click="typeInput('A')" class="btn btn-primary">Start</button>
+                        <button ng-click="terminateFor()" class="btn btn-danger">Stop</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <!-- STEP 1 -->
+        <div class="panel-default col-lg-6">
+            <div class="panel-heading">
+                <h3 class="panel-title">Step 1</h3>
+            </div>
+
+            <div class="panel-body">
+
+                <div class="form-group">
+                    <label class="col-lg-6">Visualizza Numeri Multipli di 3 e 5</label>
+
+                    <div class="col-lg-3">
+                        <input type="text" class="form-control" ng-value="barosello.outputStep" disabled>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="panel-default col-lg-6">
+            <div class="panel-heading">
+                <h3 class="panel-title">Step 2</h3>
+            </div>
+
+            <div class="panel-body">
+
+                <div class="form-group">
+                    <label class="col-lg-6">Visualizza Numeri Multipli di 3, 5 e 7</label>
+
+                    <div class="col-lg-3">
+                        <input type="text" class="form-control" ng-value="barosello.outputStep1" disabled>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- STEP 3 -->
+        <div class="panel-default col-lg-6">
+            <div class="panel-heading">
+                <h3 class="panel-title">Step 4</h3>
+            </div>
+
+            <div class="panel-body">
+
+                <label>Visualizza Numeri o Parole Colorate </label>
+
+                <div class="form-group">
+
+                    <div class="col-lg-3" ng-show="isNumber()">
+                        <span class="basic">{{barosello.outputStep1}}</span>
+                    </div>
+
+                    <div class="col-lg-3" ng-show="barosello.outputStep1 == 'Baro'">
+                        <span class="baro">{{barosello.outputStep1}}</span>
+                    </div>
+
+                    <div class="col-lg-3" ng-show="barosello.outputStep1 == 'Sello'">
+                        <span class="sello">{{barosello.outputStep1}}</span>
+                    </div>
+
+                    <div class="col-lg-3" ng-show="barosello.outputStep1 == 'BaroSello'">
+                        <span class="barosello">{{barosello.outputStep1}}</span>
+                    </div>
+
+                    <div class="col-lg-3" ng-show="barosello.outputStep1 == 'Nardo'">
+                        <span class="nardo">{{barosello.outputStep1}}</span>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+
+        <!-- STEP 4 -->
+        <div class="panel-default col-lg-6">
+            <div class="panel-heading">
+                <h3 class="panel-title">Step 4</h3>
+            </div>
+
+            <div class="panel-body">
+
+                <label> Visualizza solo BaroSello </label>
+
+                <div class="form-group">
+                    <div class="col-lg-3" ng-show="barosello.outputStep1 == 'BaroSello'">
+                        <span class="barosello">{{barosello.outputStep1}}</span>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <!-- STEP 5 -->
+        <div class="panel-default col-lg-6">
+            <div class="panel-heading">
+                <h3 class="panel-title">Step 5</h3>
+            </div>
+
+            <div class="panel-body">
+
+                <div class="form-group">
+                    <label class="col-lg-2">Output 1</label>
+                    <div class="col-lg-3" ng-show="barosello.outputStep1 == 'BaroSello'">
+                        <label>{{barosello.outputStep1}}</label>
+                    </div>
+
+                    <div class="col-lg-3" ng-show="barosello.outputStep1 == 'Sello'">
+                        <label>{{barosello.outputStep1}}</label>
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <label class="col-lg-2">Output 2</label>
+                    <div class="col-lg-3" ng-show="barosello.outputStep1 == 'Baro'">
+                        <label>{{barosello.outputStep1}}</label>
+                    </div>
+
+                    <div class="col-lg-3" ng-show="barosello.outputStep1 == 'Sello'">
+                        <label>{{barosello.outputStep1}}</label>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+</form>
+
+</body>
+
+<script src="lib/angular.js"></script>
+<script src="lib/jquery.js"></script>
+<script src="lib/bootstrap.js"></script>
+<script src="app.js"></script>
+</html>
